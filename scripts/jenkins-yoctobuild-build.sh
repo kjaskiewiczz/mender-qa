@@ -422,6 +422,11 @@ if grep mender_servers <<<"$JOB_BASE_NAME"; then
         cd mender-api-gateway-docker
         docker build -t mendersoftware/api-gateway:pr .
     )
+    (
+        $WORKSPACE/integration/extra/release_tool.py --set-version-of mender-conductor --version pr
+        cd go/src/github.com/mendersoftware/mender-conductor
+        docker build -t mendersoftware/mender-conductor:pr ./server
+    )
 fi
 
 # -----------------------
